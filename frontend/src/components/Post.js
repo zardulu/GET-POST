@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useParams } from "react-router-dom";
 
-const Post = () => {
+
+
+
+const PostComponent = () => {
+
+  const params = useParams();  
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('/posts') 
-      .then((response) => {
-        setPosts([response.data]);
-        console.log(response.data);})
-      .catch((error) => console.error(error));
+    const loadPost = async () => {
+      let results = await fetch(`http://localhost:5000/posts/${params.id}`).then(resp => resp.json());
+      setPost(results);
+    }
+
+    loadPost();
   }, []);
 
-  return (
+  return(
     <div>
-      <h1>Posts</h1>
-      
-      {posts.map((post) => (
-        <div key={post._id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-          <hr />
-        </div>
-      ))}
-      
+        <h2>{post.title}</h2>
+        <p dangerouslySetInnerHTML={{__html: post.body}} />
     </div>
-  );
-};
+  )}
 
-export default Post;
+  export default PostComponent;

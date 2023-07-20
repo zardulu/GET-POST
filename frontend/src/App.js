@@ -1,6 +1,6 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PostIndex from './components/PostIndex';
+
+import Home from './pages/Home';
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <Router>
     <div>
       <Routes>
-        <Route exact path='/posts' element={<PostIndex />} />        
+        <Route exact path='/home' element={ <Home /> } />        
         
       </Routes>
     </div>
