@@ -14,6 +14,20 @@ router.get('/posts', async function(req, res, next) {
   }
 });
 
+router.get('/posts/:id', async function(req, res, next) {
+  
+  const id = req.params.id;
+  // Handle the API request
+  try {
+  const postById = await Post.findById(id); 
+  console.log(postById);
+  res.json(postById);
+  } catch(error) {
+    res.status(500).json({ error: error.message })
+    console.log(error.message);
+  }
+});
+
 
 
 
