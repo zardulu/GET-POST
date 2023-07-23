@@ -15,12 +15,13 @@ const theme = createTheme({
         primary: '#FFFFFF', // Default text color
         secondary: '#777', // Secondary text color
         disabled: '#ccc', // Disabled text color
-        // Add more colors as needed
-      },
+        
       // Other colors and styles...
     },
     typography: {
       fontFamily: 'Arial, sans-serif',
+      
+      }
       
       // Custom typography styles...
     },

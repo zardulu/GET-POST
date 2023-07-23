@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    content: { type: String, required: true},
-    parent: { Schema.types.ObjectId, ref: 'Comment', default:null },
-    children: [{ Schema.types.ObjectId, ref: 'Comment' }],
+    parentPostID: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
+    content: { type: String, required: true}, 
     date: { type: Date, default: Date.now},
 
 });
 
-const Comment = mongoose.model('Comment', postSchema);
+const Comment = mongoose.model('Comment', commentSchema, 'comments');
 
 module.exports = Comment;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { Button, TextField, Grid, Divider, Link } from '@mui/material';
 import axios from 'axios';
 
 const Post = ({ postId }) => {
@@ -18,10 +18,14 @@ const Post = ({ postId }) => {
   }, [postId]);
 
   return(
+    <Grid container justifyContent="center" alignItems="center" sx={{ marginTop:'10vh' }}>
+      <Grid item xs={8}>
     <div>
-        <h2>{posts.title}</h2>
+        <h2 style={{ color:'#39FF14' }}>{posts.title}</h2>
         <p dangerouslySetInnerHTML={{__html: posts.content}} />
     </div>
+    </Grid>
+    </Grid>
   )}
 
   export default Post;
