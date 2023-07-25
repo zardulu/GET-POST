@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-const url = process.env.DB_URL;
+const url = process.env.DB_URL; // Sets database URL from env file
 
 async function connect() {
   try {
