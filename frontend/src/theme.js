@@ -1,33 +1,35 @@
+//MUI theme
 import { createTheme } from '@mui/material/styles';
+
 
 const theme = createTheme({
     palette: {
       primary: {
-        main: '#39FF14', // Your primary color
+        main: '#39FF14', // Neon green
       },
       secondary: {
-        main: '#f50057', // Your secondary color
+        main: '#f50057', // Red
       },
       background: {
-        default: '#180A0A', // Background color for the entire application
+        default: '#180A0A', // Black
       },
       text: {
-        primary: '#FFFFFF', // Default text color
-        secondary: '#777', // Secondary text color
-        disabled: '#ccc', // Disabled text color
+        primary: '#FFFFFF', // White
+        secondary: '#777', // 
+        disabled: '#ccc', // 
         
-      // Other colors and styles...
+     
     },
     typography: {
       fontFamily: 'Arial, sans-serif',
       
       }
       
-      // Custom typography styles...
+      
     },
     
     
-    // Other theme configurations...
+    
   });
   
 

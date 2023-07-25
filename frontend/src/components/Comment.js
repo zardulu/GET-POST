@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Button, TextField, Grid, Divider, Link } from '@mui/material';
+import { Grid, Divider } from '@mui/material';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { formatDistanceToNow } from 'date-fns';
 
-const Comment = ({ postId }) => {
 
-   
+const Comment = ({ postId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/posts/${postId}/comments`)
+    axios.get(`http://localhost:5000/api/posts/${postId}/comments`) // Fetches comments by post ID
       .then(response => {
         setComments(response.data);
       })
@@ -20,7 +19,7 @@ const Comment = ({ postId }) => {
   }, [postId]);
 
   const formatTimeDistance = (date) => {
-    return formatDistanceToNow(new Date(date), { addSuffix: true });
+    return formatDistanceToNow(new Date(date), { addSuffix: true }); 
   };
 
   return(
@@ -37,6 +36,7 @@ const Comment = ({ postId }) => {
               <Divider sx={{ bgcolor: "secondary.light" }} />
             </div>
           ))}
+
         </Grid>
     </Grid>
   )}
