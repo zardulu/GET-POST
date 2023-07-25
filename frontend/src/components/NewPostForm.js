@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
+import axios from 'axios';
 
 
 const NewPostForm = () => {
@@ -13,10 +14,22 @@ const NewPostForm = () => {
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
-
+  
+  // Post
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here, you can submit the title and content to your backend or perform other actions
+    axios
+      .post('http://localhost:5000/api/posts/', { title, content })
+      .then((response) => {
+        window.location.reload(); // Reloads on post
+        console.log('Post created successfully:', response.data);
+        
+      })
+      .catch((error) => {
+        console.error('Error creating post:', error);
+        
+      });
+
     console.log('Title:', title);
     console.log('Content:', content);
   };

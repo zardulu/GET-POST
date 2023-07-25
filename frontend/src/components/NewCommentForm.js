@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
+import axios from 'axios';
 
 
-const NewCommentForm = () => {
+const NewCommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
 
 
@@ -12,15 +13,24 @@ const NewCommentForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here, you can submit the title and content to your backend or perform other actions
+    axios
+      .post(`http://localhost:5000/api/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
+      .then((response) => {
+        window.location.reload(); // Reloads on submit
+        console.log('Comment created successfully:', response.data);
+        
+      })
+      .catch((error) => {
+        console.error('Error creating post:', error);
+        
+      });
 
     console.log('Comment:', comment);
   };
 
   return (
     
-    <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '10vh' }}>
-        
+    <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '10vh' }}>   
       <Grid item xs={5}>
         
       <form onSubmit={handleSubmit}>
