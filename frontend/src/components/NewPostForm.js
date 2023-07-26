@@ -19,7 +19,7 @@ const NewPostForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:5000/api/posts/', { title, content })
+      .post('https://get-post-backend.vercel.app/api/posts/', { title, content })
       .then((response) => {
         window.location.reload(); // Reloads on post
         console.log('Post created successfully:', response.data);

@@ -8,7 +8,7 @@ const Post = ({ postId }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/posts/${postId}`) // Fetches post by ID
+    axios.get(`https://get-post-backend.vercel.app/api/posts/${postId}`) // Fetches post by ID
       .then(response => {
         setPosts(response.data);
       })

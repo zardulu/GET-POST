@@ -13,7 +13,7 @@ const Home = () => {
 
   // Fetches posts  
   useEffect(() => {
-    axios.get('http://localhost:5000/api/posts/')
+    axios.get('https://get-post-backend.vercel.app/api/posts/')
       .then(response => {
         setPosts(response.data);
       })

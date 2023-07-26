@@ -14,7 +14,7 @@ const NewCommentForm = ({ postId }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:5000/api/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
+      .post(`https://get-post-backend.vercel.app/api/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
       .then((response) => {
         window.location.reload(); // Reloads on submit
         console.log('Comment created successfully:', response.data);
