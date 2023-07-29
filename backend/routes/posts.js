@@ -10,7 +10,10 @@ router.get('/posts', async function(req, res, next) {
 
   // Handles the API request
   try {
-  const postList = await Post.find().sort({ date: -1 }); // Sort by newest
+  const limit = 5;
+  const page = req.query.page || 1;
+  const skip = (page - 1) * limit; 
+  const postList = await Post.find().sort({ date: -1 }).skip(skip).limit(limit); // Sort by newest
   console.log(postList);
   res.json(postList);
   } catch(error) {

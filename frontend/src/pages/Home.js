@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Grid, Divider, Link } from '@mui/material';
+import { Grid, Divider, Link, Button } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import NewPostForm from '../components/NewPostForm';
 import { formatDistanceToNow } from 'date-fns'; 
 import logo from '../assets/logo3.svg';
-
+import config from '../config';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
 
   // Fetches posts  
   useEffect(() => {
-    axios.get('https://get-post-backend.vercel.app/api/posts/')
+
+    // Determines API url based on environment
+    const apiUrl =
+      process.env.NODE_ENV === 'production'
+        ? config.production.apiUrl
+        : config.development.apiUrl;
+
+    
+    axios.get(`${apiUrl}/posts/?page=${page}`)
       .then(response => {
-        setPosts(response.data);
-      })
+        if (page > 1) {
+        setPosts((prevPosts) => [...prevPosts, ...response.data]); // Appends newly fetched posts to previously fetched 
+        } else {
+       setPosts(response.data);}}) // Avoids double page 1 fetches
       .catch(error => {
         console.log(error);
       });
-  }, []);
+    }, [page]);
+
+  // Event handler for 'Load More' button
+  const handleLoadMore = () => {
+    setPage((prevPage) => prevPage + 1);
+    
+  };
   
   // Converts to more readable date format
   const formatTimeDistance = (date) => {
@@ -53,11 +71,23 @@ const Home = () => {
 
               <p style={{ textAlign:'right', fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(post.date)}</p>
               <Divider sx={{ bgcolor: "secondary.light" }} /> 
+
             </div>
 
           ))}
+          
+          {/*Load More */}
+          <Grid container justifyContent='center' marginBottom='20px'>
+            <Button startIcon={<AddIcon fontSize='large' />} sx={{ borderRadius: 10 }}
+             variant='outlined' color='primary' onClick={handleLoadMore}>
+              Load More
+            </Button>
+         </Grid>
+
         </Grid>
+ 
       </Grid>
+
     </div>
   );
 };
