@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import axios from 'axios';
-
+import config from '../config';
 
 const NewPostForm = () => {
   const [title, setTitle] = useState('');
@@ -18,8 +18,14 @@ const NewPostForm = () => {
   // Post
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const apiUrl =
+      process.env.NODE_ENV === 'production'
+        ? config.production.apiUrl
+        : config.development.apiUrl;
+
     axios
-      .post('https://get-post-backend.vercel.app/api/posts/', { title, content })
+      .post(`${apiUrl}/posts`, { title, content })
       .then((response) => {
         window.location.reload(); // Reloads on post
         console.log('Post created successfully:', response.data);

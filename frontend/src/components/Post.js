@@ -2,13 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import config from '../config';
 
 
 const Post = ({ postId }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://get-post-backend.vercel.app/api/posts/${postId}`) // Fetches post by ID
+
+    const apiUrl =
+      process.env.NODE_ENV === 'production'
+        ? config.production.apiUrl
+        : config.development.apiUrl;
+
+    axios.get(`${apiUrl}/posts/${postId}`) // Fetches post by ID
       .then(response => {
         setPosts(response.data);
       })

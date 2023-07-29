@@ -3,13 +3,20 @@ import { Grid, Divider } from '@mui/material';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { formatDistanceToNow } from 'date-fns';
+import config from '../config';
 
 
 const Comment = ({ postId }) => {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://get-post-backend.vercel.app/api/posts/${postId}/comments`) // Fetches comments by post ID
+
+    const apiUrl =
+      process.env.NODE_ENV === 'production'
+        ? config.production.apiUrl
+        : config.development.apiUrl;
+
+    axios.get(`${apiUrl}/posts/${postId}/comments`) // Fetches comments by post ID
       .then(response => {
         setComments(response.data);
       })

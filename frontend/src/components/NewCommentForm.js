@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import axios from 'axios';
+import config from '../config';
 
 
 const NewCommentForm = ({ postId }) => {
@@ -13,8 +14,14 @@ const NewCommentForm = ({ postId }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const apiUrl =
+      process.env.NODE_ENV === 'production'
+        ? config.production.apiUrl
+        : config.development.apiUrl;
+
     axios
-      .post(`https://get-post-backend.vercel.app/api/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
+      .post(`${apiUrl}/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
       .then((response) => {
         window.location.reload(); // Reloads on submit
         console.log('Comment created successfully:', response.data);
