@@ -32,7 +32,7 @@ const NewCommentForm = ({ postId }) => {
         
       });
 
-    console.log('Comment:', comment);
+    console.log('Comment:', comment); //
   };
 
   return (
