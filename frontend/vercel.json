@@ -2,8 +2,8 @@
     "rewrites": [
       {
         "source": "/",
-        "destination": "/Home",
-        "type": 301
+        "destination": "/Home"
+        
       }
     ]
   }
