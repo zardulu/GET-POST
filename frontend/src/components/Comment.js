@@ -39,7 +39,10 @@ const Comment = ({ postId }) => {
               <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px' }} />
               <h3 style={{ marginLeft: '10px' }}>{comment.content}</h3>
             </div>
-              <p style={{ textAlign:'right', fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(comment.date)}</p>
+            <div style={{ display: 'flex', justifyContent: 'right' }}>
+              <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>
+              <p style={{  fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(comment.date)}</p>
+            </div>
               <Divider sx={{ bgcolor: "secondary.light" }} />
             </div>
           ))}

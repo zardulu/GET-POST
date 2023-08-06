@@ -69,7 +69,10 @@ const Home = () => {
 
               </div>
 
-              <p style={{ textAlign:'right', fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(post.date)}</p>
+              <div style={{ display: 'flex', justifyContent: 'right' }}>
+              <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>
+              <p style={{  fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(post.date)}</p>
+              </div>
               <Divider sx={{ bgcolor: "secondary.light" }} /> 
 
             </div>
