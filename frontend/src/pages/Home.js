@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Divider, Link, Button } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import NewPostForm from '../components/NewPostForm';
@@ -70,8 +71,13 @@ const Home = () => {
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'right' }}>
-              <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>
-              <p style={{  fontStyle: 'italic', color: 'grey' }}>{formatTimeDistance(post.date)}</p>
+                
+                <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>
+                <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px'}}>{formatTimeDistance(post.date)}</p>
+
+                  <Link component={RouterLink} to={`/post/${post._id}`} sx={{ textDecoration:'line', display: 'flex', alignItems: 'center', fontStyle: 'italic', color: 'white', '&:hover': {
+                  color: '#39FF14'} }}> <CommentOutlinedIcon sx={{marginRight: '5px'}} />{post.commentCount}</Link> 
+              
               </div>
               <Divider sx={{ bgcolor: "secondary.light" }} /> 
 

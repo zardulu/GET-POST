@@ -14,12 +14,24 @@ router.get('/posts', async function(req, res, next) {
   const page = req.query.page || 1;
   const skip = (page - 1) * limit; 
   const postList = await Post.find().sort({ date: -1 }).skip(skip).limit(limit); // Sort by newest
-  console.log(postList);
-  res.json(postList);
-  } catch(error) {
-    res.status(500).json({ error: error.message })
-    console.log(error.message);
-  }
+  // Calculate comment count for each post
+  const postsWithCommentCount = await Promise.all(
+    postList.map(async post => {
+      const commentCount = await Comment.countDocuments({
+        parentPostID: post._id,
+      });
+      return {
+        ...post.toObject(),
+        commentCount: commentCount,
+      };
+    })
+  );
+
+  res.json(postsWithCommentCount);
+} catch (error) {
+  res.status(500).json({ error: error.message });
+  console.log(error.message);
+}
 });
 
 // Fetches posts by ID
