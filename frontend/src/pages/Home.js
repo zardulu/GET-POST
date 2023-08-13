@@ -49,7 +49,9 @@ const Home = () => {
   return (
     <div>  
       
+      <Link component={RouterLink} to='/home'>
       <img src={logo} alt='logo' style={{ width: '120px', height: '60px', margin: '15px' }}/> {/* Logo */}
+      </Link>
       <NewPostForm /> { /* New post input form */}
 
       <Grid container justifyContent="center" alignItems="center">
