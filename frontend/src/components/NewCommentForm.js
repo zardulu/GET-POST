@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import axios from 'axios';
 import config from '../config';
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 const NewCommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
+  const [verified, setVerified] = useState(false);
 
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+
+  const handleCaptcha = (event) => {
+    setVerified(true);
   };
 
   const handleSubmit = (event) => {
@@ -54,9 +59,17 @@ const NewCommentForm = ({ postId }) => {
               color= "primary"
               focused
             />
-            <Button type="submit" variant="outlined" color="primary">
+          <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: '#39FF14', borderColor: '#39FF14', marginRight: '20px'}}>
               Comment
             </Button>
+            <ReCAPTCHA
+            sitekey={process.env.REACT_APP_SITE_KEY} 
+            onChange={handleCaptcha}
+            theme='dark'
+            />
+            
+          </div>
           </form>
         
       </Grid>

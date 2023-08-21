@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Button, TextField, Grid } from '@mui/material';
 import axios from 'axios';
 import config from '../config';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const NewPostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [verified, setVerified] = useState(false);
+  
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -14,22 +17,26 @@ const NewPostForm = () => {
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
-  
-  // Post
-  const handleSubmit = (event) => {
-    event.preventDefault();
 
-    const apiUrl =
+  const handleCaptcha = (event) => {
+    setVerified(true);
+  };
+  
+  const apiUrl =
       process.env.NODE_ENV === 'production'
         ? config.production.apiUrl
         : config.development.apiUrl;
 
-    axios
+  //Post
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setVerified(true);
+    await axios
       .post(`${apiUrl}/posts`, { title, content })
       .then((response) => {
         window.location.reload(); // Reloads on post
         console.log('Post created successfully:', response.data);
-        
+      
       })
       .catch((error) => {
         console.error('Error creating post:', error);
@@ -45,6 +52,7 @@ const NewPostForm = () => {
       <Grid item>
         
           <form onSubmit={handleSubmit}>
+          
             <TextField
               id="post-title"
               label="Title"
@@ -69,9 +77,18 @@ const NewPostForm = () => {
               color= "primary"
               focused
             />
-            <Button type="submit" variant="outlined" color="primary">
+            <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: '#39FF14', borderColor: '#39FF14', marginRight: '20px'}}>
               Post
             </Button>
+            <ReCAPTCHA
+            sitekey={process.env.REACT_APP_SITE_KEY} 
+            onChange={handleCaptcha}
+            style={{  }}
+            theme='dark'
+            />
+            
+            </div>
           </form>
         
       </Grid>
