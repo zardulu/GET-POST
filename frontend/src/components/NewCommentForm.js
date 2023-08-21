@@ -64,7 +64,7 @@ const NewCommentForm = ({ postId }) => {
               Comment
             </Button>
             <ReCAPTCHA
-            sitekey={process.env.REACT_APP_SITE_KEY} 
+            sitekey='6LfDkcMnAAAAAPA1u1pQ3CEEHa6SSMgwScrVAG-J'
             onChange={handleCaptcha}
             theme='dark'
             />
