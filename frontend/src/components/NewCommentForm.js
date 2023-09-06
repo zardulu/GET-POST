@@ -43,7 +43,7 @@ const NewCommentForm = ({ postId }) => {
   return (
     
     <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '10vh' }}>   
-      <Grid item xs={5}>
+      <Grid item xs={6}>
         
       <form onSubmit={handleSubmit}>
             <TextField

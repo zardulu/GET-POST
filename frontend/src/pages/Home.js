@@ -47,60 +47,92 @@ const Home = () => {
   };
 
   return (
-    <div>  
-      
-      <Link component={RouterLink} to='/home'>
-      <img src={logo} alt='logo' style={{ width: '120px', height: '60px', margin: '15px' }}/> {/* Logo */}
-      </Link>
-      <NewPostForm /> { /* New post input form */}
+    <div>
+    <Link component={RouterLink} to="/home">
+      <img
+        src={logo}
+        alt="logo"
+        style={{ width: '120px', height: '60px', margin: '15px' }}
+      />
+    </Link>
+    <NewPostForm /> {/* New post input form */}
 
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item xs={6} >
-          
-          {/* Maps posts to title links */}
-          {posts.map(post => (
-            <div key={post._id} style={{ marginBottom: '50px' }}>
+    <Grid container justifyContent="center" alignItems="center">
+      <Grid item xs={6}>
+        {/* Maps posts to title links */}
+        {posts.map((post) => (
+          <div key={post._id} style={{ marginBottom: '50px' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <h1 style={{ marginRight: '20px', width: '45px' }}>#{post.serialNumber}</h1>
 
-              <div style={{ display: 'flex', alignItems: 'left' }}>
-              
-              <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px' }} /> {/* bullet point icon */}
-
-                <Link component={RouterLink} to={`/post/${post._id}`} sx={{ textDecoration:'none', color: 'white', '&:hover': {
-                color: '#39FF14'} }}>
-                  <h3 style={{ marginLeft: '10px' }}>{post.title}</h3>
-                </Link>
-
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'right' }}>
-                
-                <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>
-                <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px'}}>{formatTimeDistance(post.date)}</p>
-
-                  <Link component={RouterLink} to={`/post/${post._id}`} sx={{ textDecoration:'line', display: 'flex', alignItems: 'center', fontStyle: 'italic', color: 'white', '&:hover': {
-                  color: '#39FF14'} }}> <CommentOutlinedIcon sx={{marginRight: '5px'}} />{post.commentCount}</Link> 
-              
-              </div>
-              <Divider sx={{ bgcolor: "secondary.light" }} /> 
-
+              <FormatQuoteIcon
+                color="primary"
+                sx={{ marginBottom: '50px' }}
+              />{' '}
+              {/* bullet point icon */}
+              <Link
+                component={RouterLink}
+                to={`/post/${post._id}`}
+                sx={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  '&:hover': {
+                    color: '#39FF14',
+                  },
+                }}
+              >
+                <h3 style={{ marginLeft: '10px' }}>{post.title}</h3>
+              </Link>
             </div>
 
-          ))}
-          
-          {/*Load More */}
-          <Grid container justifyContent='center' marginBottom='20px'>
-            <Button startIcon={<AddIcon fontSize='large' />} sx={{ borderRadius: 10 }}
-             variant='outlined' color='primary' onClick={handleLoadMore}>
-              Load More
-            </Button>
-         </Grid>
+            <div style={{ display: 'flex', justifyContent: 'right'}}>
+              <p style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>
+                - Anonymous
+              </p>
+              <p
+                style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }}
+              >
+                {formatTimeDistance(post.date)}
+              </p>
 
+              <Link
+                component={RouterLink}
+                to={`/post/${post._id}`}
+                sx={{
+                  textDecoration: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontStyle: 'italic',
+                  color: 'white',
+                  '&:hover': {
+                    color: '#39FF14',
+                  },
+                }}
+              >
+                <CommentOutlinedIcon sx={{ marginRight: '5px' }} />
+                {post.commentCount}
+              </Link>
+            </div>
+            <Divider sx={{ bgcolor: 'secondary.light' }} />
+          </div>
+        ))}
+
+        {/* Load More */}
+        <Grid container justifyContent="center" marginBottom="20px">
+          <Button
+            startIcon={<AddIcon fontSize="large" />}
+            sx={{ borderRadius: 10 }}
+            variant="outlined"
+            color="primary"
+            onClick={handleLoadMore}
+          >
+            Load More
+          </Button>
         </Grid>
- 
       </Grid>
-
-    </div>
-  );
-};
+    </Grid>
+  </div>
+);}
 
 export default Home;
+              

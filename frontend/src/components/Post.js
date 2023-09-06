@@ -29,6 +29,7 @@ const Post = ({ postId }) => {
       <Grid item xs={8}>
         <div style={{ marginBottom: '50px' }}>
           <div style={{ display: 'flex', alignItems: 'left' }}>
+          <h1 style={{ marginRight: '20px' }}>#{posts.serialNumber}</h1>
             <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px', marginRight: '10px' }}  />
           
             <div>

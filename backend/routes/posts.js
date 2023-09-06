@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const app = express();
+app.use(express.json()); // Add this line to enable JSON body parsing
 
 
 router.get('/posts', async function(req, res, next) {
@@ -14,6 +16,7 @@ router.get('/posts', async function(req, res, next) {
   const page = req.query.page || 1;
   const skip = (page - 1) * limit; 
   const postList = await Post.find().sort({ date: -1 }).skip(skip).limit(limit); // Sort by newest
+  
   // Calculate comment count for each post
   const postsWithCommentCount = await Promise.all(
     postList.map(async post => {
@@ -70,7 +73,13 @@ router.get('/posts/:id/comments', async function(req, res, next) {
 router.post('/posts', async (req, res, next) => {
   try {
     const { title, content } = req.body;
-    const post = new Post({ title, content });
+    // Find the latest post to get its serialNumber
+  const latestPost = await Post.findOne({}, {}, { sort: { serialNumber: -1 } });
+
+  // Calculate the new serialNumber
+  const newSerialNumber = latestPost ? latestPost.serialNumber + 1 : 1;
+
+    const post = new Post({ title, content, serialNumber: newSerialNumber });
     const newPost = await post.save();
     return res.status(201).json(newPost);
   } catch (err) {

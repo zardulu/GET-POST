@@ -6,6 +6,7 @@ const postSchema = new Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
     date: { type: Date, default: Date.now },
+    serialNumber: { type: Number, required: true },
 
     
 });
