@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, TextField, Grid } from '@mui/material';
+import { Button, TextField, ThemeProvider, Grid } from '@mui/material';
 import axios from 'axios';
 import config from '../config';
 import ReCAPTCHA from "react-google-recaptcha";
+import theme from '../theme';
 
 const NewPostForm = () => {
   const [title, setTitle] = useState('');
@@ -54,6 +55,9 @@ const NewPostForm = () => {
           <form onSubmit={handleSubmit}>
           
             <TextField
+              sx={{
+                fieldset: { borderColor: "#8d8d8d" }
+              }}
               id="post-title"
               label="Title"
               fullWidth
@@ -62,9 +66,12 @@ const NewPostForm = () => {
               variant="outlined"
               margin="normal"
               color="primary"
-              focused
             />
+             <ThemeProvider theme={theme}>
             <TextField
+              sx={{
+                fieldset: { borderColor: "#8d8d8d" }
+              }}
               id="post-content"
               label="Content"
               fullWidth
@@ -75,10 +82,10 @@ const NewPostForm = () => {
               variant="outlined"
               margin="normal"
               color= "primary"
-              focused
             />
+            </ThemeProvider>
             <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
-            <Button type="submit" variant="outlined" disabled={!verified} style={{color: '#39FF14', borderColor: '#39FF14', marginRight: '20px'}}>
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14' : '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px', }}>
               Post
             </Button>
             <ReCAPTCHA

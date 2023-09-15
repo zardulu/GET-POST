@@ -47,6 +47,9 @@ const NewCommentForm = ({ postId }) => {
         
       <form onSubmit={handleSubmit}>
             <TextField
+              sx={{
+                fieldset: { borderColor: "#8d8d8d" }
+              }}
               id="post-comment"
               label="Comment"
               fullWidth
@@ -57,10 +60,9 @@ const NewCommentForm = ({ postId }) => {
               variant="outlined"
               margin="normal"
               color= "primary"
-              focused
             />
           <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
-            <Button type="submit" variant="outlined" disabled={!verified} style={{color: '#39FF14', borderColor: '#39FF14', marginRight: '20px'}}>
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14': '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px'}}>
               Comment
             </Button>
             <ReCAPTCHA

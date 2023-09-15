@@ -11,7 +11,7 @@ const theme = createTheme({
         main: '#f50057', // Red
       },
       background: {
-        default: '#180A0A', // Black
+        default: '#121212', // Black
       },
       text: {
         primary: '#FFFFFF', // White
@@ -23,7 +23,8 @@ const theme = createTheme({
     typography: {
       fontFamily: 'Arial, sans-serif',
       
-      }
+      },
+      
       
       
     },
