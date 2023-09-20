@@ -1,8 +1,8 @@
 //MUI theme
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 
-const theme = createTheme({
+let theme = createTheme({
     palette: {
       primary: {
         main: '#39FF14', // Neon green
@@ -20,8 +20,21 @@ const theme = createTheme({
         
      
     },
+
+    breakpoints: {
+      values: {
+       
+        sm: 600,
+        md: 1100,
+        lg: 1500,
+        
+      },
+
     typography: {
       fontFamily: 'Arial, sans-serif',
+
+      },
+      
       
       },
       
@@ -34,5 +47,7 @@ const theme = createTheme({
     
   });
   
+theme = responsiveFontSizes(theme);
+
 
 export default theme;

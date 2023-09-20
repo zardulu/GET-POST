@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, TextField, Grid } from '@mui/material';
+import { Button, TextField, Grid, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
 import config from '../config';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -7,6 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 const NewCommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
   const [verified, setVerified] = useState(false);
+  const theme = useTheme();
 
 
   const handleCommentChange = (event) => {
@@ -43,7 +45,7 @@ const NewCommentForm = ({ postId }) => {
   return (
     
     <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '10vh' }}>   
-      <Grid item xs={6}>
+      <Grid item xs={8} md={7} lg={6}>
         
       <form onSubmit={handleSubmit}>
             <TextField
@@ -62,7 +64,8 @@ const NewCommentForm = ({ postId }) => {
               color= "primary"
             />
           <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
-            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14': '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px'}}>
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14': '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px'}}
+            size={theme.breakpoints.down('xs') ? 'md' : 'large'}>
               Comment
             </Button>
             <ReCAPTCHA

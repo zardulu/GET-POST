@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Divider } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { formatDistanceToNow } from 'date-fns';
 import config from '../config';
+import { useTheme } from '@mui/material/styles';
 
 
 const Comment = ({ postId }) => {
-  const [comments, setComments] = useState([]);
+const [comments, setComments] = useState([]);
+const theme = useTheme()
+
 
   useEffect(() => {
 
@@ -37,7 +41,7 @@ const Comment = ({ postId }) => {
             <div key={comment._id} style={{ marginBottom: '50px' }}>
               <div style={{ display: 'flex', alignItems: 'left' }}>
               <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px' }} />
-              <h3 style={{ marginLeft: '10px' }}>{comment.content}</h3>
+              <Typography variant='h6' style={{ marginLeft: '10px' }} sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '1em' : theme.breakpoints.down('sm') ? '1em' : '1em' }}>{comment.content}</Typography>
             </div>
             <div style={{ display: 'flex', justifyContent: 'right' }}>
               <p style={{  fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>- Anonymous</p>

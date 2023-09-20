@@ -3,6 +3,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Divider, Link, Button } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import NewPostForm from '../components/NewPostForm';
@@ -13,6 +15,8 @@ import config from '../config';
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+
+  const theme = useTheme();
 
   // Fetches posts  
   useEffect(() => {
@@ -39,12 +43,14 @@ const Home = () => {
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
     
+    
   };
   
   // Converts to more readable date format
   const formatTimeDistance = (date) => {
     return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
+
 
   return (
     <div>
@@ -63,7 +69,7 @@ const Home = () => {
         {posts.map((post) => (
           <div key={post._id} style={{ marginBottom: '50px' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <h1 style={{ marginRight: '20px', width: '45px' }}>#{post.serialNumber}</h1>
+              <Typography variant ='h4' style={{ marginRight: '20px', width: '45px', fontWeight: 'bold' }}>#{post.serialNumber}</Typography>
 
               <FormatQuoteIcon
                 color="primary"
@@ -81,19 +87,21 @@ const Home = () => {
                   },
                 }}
               >
-                <h3 style={{ marginLeft: '10px' }}>{post.title}</h3>
+                <Typography variant='h5'  sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '1em' : theme.breakpoints.down('sm') ? '1em' : '1em' }} style={{ marginLeft: '10px' }}>{post.title}</Typography>
               </Link>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'right'}}>
-              <p style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>
+            <div style={{ display: 'flex', justifyContent: 'right', marginBottom: '10px'}}>
+              <Typography variant = 'subtitle1' style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }} sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '1em' : theme.breakpoints.down('sm') ? '1em' : '1em' }}>
                 - Anonymous
-              </p>
-              <p
-                style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }}
+              </Typography>
+              <Typography variant = 'subtitle1'
+                
+                style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }} sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '0.5em' : theme.breakpoints.down('sm') ? '0.2em' : '1em', fontStyle: 'italic', color: 'grey', marginRight: '20px'  }}
+                
               >
                 {formatTimeDistance(post.date)}
-              </p>
+              </Typography>
 
               <Link
                 component={RouterLink}
