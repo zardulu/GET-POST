@@ -1,4 +1,3 @@
 # GET/POST
-Message forum built using React and Express.js. MongoDB is used for database.
-
+Anonymous text board built using MERN stack.
 Link - https://getpost.vercel.app
