@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Grid, Divider, Link, Button } from '@mui/material';
+import { Grid, Divider, Link, Button, Box } from '@mui/material';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import Typography from '@mui/material/Typography';
@@ -61,10 +61,12 @@ const Home = () => {
         style={{ width: '120px', height: '60px', margin: '15px' }}
       />
     </Link>
+    <Grid>
     <NewPostForm /> {/* New post input form */}
+    </Grid>
 
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item xs={6}>
+    <Grid container justifyContent="center" alignItems="center" marginTop="20px">
+      <Grid item xs={8} sm={8} md={8} lg={6} >
         {/* Maps posts to title links */}
         {posts.map((post) => (
           <div key={post._id} style={{ marginBottom: '50px' }}>
@@ -92,7 +94,7 @@ const Home = () => {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'right', marginBottom: '10px'}}>
-              <Typography variant = 'subtitle1' style={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }} sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '1em' : theme.breakpoints.down('sm') ? '1em' : '1em' }}>
+              <Typography variant = 'subtitle1' sx={{ fontStyle: 'italic', color: 'grey', marginRight: '20px' }}>
                 - Anonymous
               </Typography>
               <Typography variant = 'subtitle1'

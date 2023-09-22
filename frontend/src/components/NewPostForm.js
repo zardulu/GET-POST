@@ -49,8 +49,8 @@ const NewPostForm = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center" style={{ height: '60vh' }}>
-      <Grid item xs={8} sm={6} md={4} lg={3}>
+    <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '50vh', padding: '1em' }}>
+      <Grid item xs={10} sm={7} md={5} lg={3} xl={3}>
         
           <form onSubmit={handleSubmit}>
           
