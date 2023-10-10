@@ -72,14 +72,14 @@ router.get('/posts/:id/comments', async function(req, res, next) {
 // Create a new post
 router.post('/posts', async (req, res, next) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
     // Find the latest post to get its serialNumber
   const latestPost = await Post.findOne({}, {}, { sort: { serialNumber: -1 } });
 
   // Calculate the new serialNumber
   const newSerialNumber = latestPost ? latestPost.serialNumber + 1 : 1;
 
-    const post = new Post({ title, content, serialNumber: newSerialNumber });
+    const post = new Post({ title, content, category, serialNumber: newSerialNumber });
     const newPost = await post.save();
     return res.status(201).json(newPost);
   } catch (err) {

@@ -7,6 +7,7 @@ const postSchema = new Schema({
     content: { type: String, required: true },
     date: { type: Date, default: Date.now },
     serialNumber: { type: Number, required: true },
+    category: { type: String, required: false },
 
     
 });
