@@ -26,7 +26,7 @@ const Post = ({ postId }) => {
 
   return(
     <Grid container justifyContent="center" alignItems="center" sx={{ marginTop:'10vh' }}>
-      <Grid item xs={10} md={9} lg={8}>
+      <Grid item xs={12} md={9} lg={8}>
         <div style={{ marginBottom: '50px' }}>
           <div style={{ display: 'flex', alignItems: 'left' }}>
           <Typography variant = 'h3' style={{ marginRight: '20px' }}>#{posts.serialNumber}</Typography>

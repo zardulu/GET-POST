@@ -77,7 +77,7 @@ const Home = () => {
       </Grid>
 
       <Grid container justifyContent="center" alignItems="center" marginTop="20px">
-        <Grid item xs={8} sm={8} md={8} lg={6}>
+        <Grid item xs={10} sm={8} md={8} lg={6}>
           {/* Filter buttons */}
           <div className="filter-buttons" style={{ marginBottom: '5vh' }} >
             {categories.map((category) => (
