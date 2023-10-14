@@ -149,8 +149,8 @@ const Home = () => {
 
         {/* Display category as a pill if available */}
         {post.category && (
-          <div
-            style={{
+          <Typography
+            sx={{
               display: 'flex',
               alignItems: 'center',
               marginLeft: '10px',
@@ -158,10 +158,13 @@ const Home = () => {
               borderRadius: '20px', // Makes it pill-shaped
               backgroundColor: '#39FF14', // Green background color
               color: 'black', // Text color
+              '@media (max-width:600px)': {
+                fontSize: '0.8rem'},
+              
             }}
           >
             {post.category}
-          </div>
+          </Typography>
         )}
       </div>
 
