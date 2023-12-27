@@ -55,7 +55,6 @@ const Home = () => {
     'Science & Technology',
     'Politics',
     'Meme',
-    'Pop Culture',
   ];
 
   // Handle category filtering
