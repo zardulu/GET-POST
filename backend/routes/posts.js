@@ -9,32 +9,40 @@ app.use(express.json()); // Add this line to enable JSON body parsing
 
 
 router.get('/posts', async function(req, res, next) {
-
-  // Handles the API request
   try {
-  const limit = 5;
-  const page = req.query.page || 1;
-  const skip = (page - 1) * limit; 
-  const postList = await Post.find().sort({ date: -1 }).skip(skip).limit(limit); // Sort by newest
-  
-  // Calculate comment count for each post
-  const postsWithCommentCount = await Promise.all(
-    postList.map(async post => {
-      const commentCount = await Comment.countDocuments({
-        parentPostID: post._id,
-      });
-      return {
-        ...post.toObject(),
-        commentCount: commentCount,
-      };
-    })
-  );
+    const limit = 5;
+    const page = req.query.page || 1;
+    const skip = (page - 1) * limit;
 
-  res.json(postsWithCommentCount);
-} catch (error) {
-  res.status(500).json({ error: error.message });
-  console.log(error.message);
-}
+    const postsWithCommentCount = await Post.aggregate([
+      { $sort: { date: -1 } },
+      { $skip: skip },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'parentPostID',
+          as: 'comments',
+        },
+      },
+      {
+        $addFields: {
+          commentCount: { $size: '$comments' },
+        },
+      },
+      {
+        $project: {
+          comments: 0, 
+        },
+      },
+    ]);
+
+    res.json(postsWithCommentCount);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+    console.log(error.message);
+  }
 });
 
 // Fetches posts by ID

@@ -8,6 +8,8 @@ const commentSchema = new Schema({
 
 });
 
+commentSchema.index({ parentPostID: 1 });
+
 const Comment = mongoose.model('Comment', commentSchema, 'comments');
 
 module.exports = Comment;
