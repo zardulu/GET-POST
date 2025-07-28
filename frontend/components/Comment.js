@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { formatDistanceToNow } from 'date-fns';
-import config from '../config';
+import config from '../src/config';
 import { useTheme } from '@mui/material/styles';
 
 
@@ -20,7 +20,7 @@ const theme = useTheme()
         ? config.production.apiUrl
         : config.development.apiUrl;
 
-    axios.get(`${apiUrl}/posts/${postId}/comments`) // Fetches comments by post ID
+    axios.get(`${apiUrl}/posts/${postId}/comments`)
       .then(response => {
         setComments(response.data);
       })
@@ -40,7 +40,7 @@ const theme = useTheme()
           {comments.map(comment => (
             <div key={comment._id} style={{ marginBottom: '50px' }}>
               <div style={{ display: 'flex', alignItems: 'left' }}>
-              <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px' }} />
+              <FormatQuoteIcon sx={{ marginBottom: '50px', color: 'primary.main' }} />
               <Typography variant='h6' style={{ marginLeft: '10px' }} sx={{ fontSize: theme.breakpoints.down('lg') ? '1em' : theme.breakpoints.down('md') ? '1em' : theme.breakpoints.down('sm') ? '1em' : '1em' }}>{comment.content}</Typography>
             </div>
             <div style={{ display: 'flex', justifyContent: 'right' }}>

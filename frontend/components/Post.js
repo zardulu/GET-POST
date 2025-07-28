@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Typography } from '@mui/material';
 import axios from 'axios';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import config from '../config';
+import config from '../src/config';
 
 
 const Post = ({ postId }) => {
@@ -15,7 +15,7 @@ const Post = ({ postId }) => {
         ? config.production.apiUrl
         : config.development.apiUrl;
 
-    axios.get(`${apiUrl}/posts/${postId}`) // Fetches post by ID
+    axios.get(`${apiUrl}/posts/${postId}`)
       .then(response => {
         setPosts(response.data);
       })
@@ -30,7 +30,7 @@ const Post = ({ postId }) => {
         <div style={{ marginBottom: '50px' }}>
           <div style={{ display: 'flex', alignItems: 'left' }}>
           <Typography variant = 'h3' style={{ marginRight: '20px' }}>#{posts.serialNumber}</Typography>
-            <FormatQuoteIcon color="primary" sx={{ marginBottom: '50px', marginRight: '10px' }}  />
+            <FormatQuoteIcon sx={{ marginBottom: '50px', marginRight: '10px', color: 'primary.main' }}  />
           
             <div>
               <Typography variant = 'h4' style={{ color:'#39FF14', textAlign:'left', marginLeft: '10px', marginBottom: '10px' }}>{posts.title}</Typography>

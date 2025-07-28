@@ -2,21 +2,19 @@ import React, { useState } from 'react';
 import {
   Button,
   TextField,
-  ThemeProvider,
   Grid,
   Select,
   MenuItem,
 } from '@mui/material';
 import axios from 'axios';
-import config from '../config';
+import config from '../src/config';
 import ReCAPTCHA from 'react-google-recaptcha';
-import theme from '../theme';
 
 const NewPostForm = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [verified, setVerified] = useState(false);
-  const [category, setCategory] = useState(''); // Default category
+  const [category, setCategory] = useState('');
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -38,16 +36,19 @@ const NewPostForm = () => {
     process.env.NODE_ENV === 'production'
       ? config.production.apiUrl
       : config.development.apiUrl;
+      
+  console.log('Environment:', process.env.NODE_ENV);
+  console.log('API URL:', apiUrl);
+  console.log('Config:', config);
 
-  // Post
   const handleSubmit = async (event) => {
     event.preventDefault();
     setVerified(true);
 
     await axios
-      .post(`${apiUrl}/posts`, { title, content, category }) // Include the selected category in the post request
+      .post(`${apiUrl}/posts`, { title, content, category })
       .then((response) => {
-        window.location.reload(); // Reloads on post
+        window.location.reload();
         console.log('Post created successfully:', response.data);
       })
       .catch((error) => {
@@ -69,76 +70,50 @@ const NewPostForm = () => {
       <Grid item xs={10} sm={7} md={5} lg={3} xl={3}>
         <form onSubmit={handleSubmit}>
         <Select
-  sx={{
-    fieldset: { borderColor: '#8d8d8d' },
-    '& .MuiSelect-icon': {
-      color: '#8d8d8d', // Change the arrow color
-    },
-  }}
-  label="Category"
   size="small"
   value={category}
   onChange={handleCategoryChange}
   variant="outlined"
-  color="primary"
-  margin="normal"
-  style={{ marginRight: '20px', minWidth: '120px' }}
+  style={{ marginRight: '20px', minWidth: '120px', marginBottom: '16px' }}
   MenuProps={{
     PaperProps: {
       style: {
-        backgroundColor: 'black', // Change the background color of the dropdown menu
-        color: 'white', // Change the text color of the dropdown menu
+        backgroundColor: 'black',
+        color: 'white',
       },
     },
   }}
 >
-  
-  {/* Define your categories */}
-  {[
-    'Misc',
-    'News',
-    'Science & Technology',
-    'Politics',
-    'Meme',
-    'Pop Culture',
-  ].map((category) => (
-    <MenuItem key={category} value={category}>
-      {category}
-    </MenuItem>
-  ))}
+  <MenuItem value="All">All</MenuItem>
+  <MenuItem value="Misc">Misc</MenuItem>
+  <MenuItem value="News">News</MenuItem>
+  <MenuItem value="Science & Technology">Science & Technology</MenuItem>
+  <MenuItem value="Politics">Politics</MenuItem>
+  <MenuItem value="Meme">Meme</MenuItem>
 </Select>
 
-
           <TextField
-            sx={{
-              fieldset: { borderColor: '#8d8d8d' },
-            }}
             id="post-title"
             label="Title"
             fullWidth
             value={title}
             onChange={handleTitleChange}
             variant="outlined"
-            margin="normal"
-            color="primary"
+            sx={{ mb: 2 }}
           />
-          <ThemeProvider theme={theme}>
-            <TextField
-              sx={{
-                fieldset: { borderColor: '#8d8d8d' },
-              }}
-              id="post-content"
-              label="Content"
-              fullWidth
-              multiline
-              rows={5}
-              value={content}
-              onChange={handleContentChange}
-              variant="outlined"
-              margin="normal"
-              color="primary"
-            />
-          </ThemeProvider>
+
+          <TextField
+            id="post-content"
+            label="Content"
+            fullWidth
+            multiline
+            rows={5}
+            value={content}
+            onChange={handleContentChange}
+            variant="outlined"
+            sx={{ mb: 2 }}
+          />
+
           <div
             style={{
               display: 'flex',
@@ -160,7 +135,7 @@ const NewPostForm = () => {
               Post
             </Button>
             <ReCAPTCHA
-              sitekey="6LfDkcMnAAAAAPA1u1pQ3CEEHa6SSMgwScrVAG-J"
+              sitekey={process.env.NEXT_PUBLIC_SITE_KEY || "6LfDkcMnAAAAAPA1u1pQ3CEEHa6SSMgwScrVAG-J"}
               onChange={handleCaptcha}
               style={{}}
               theme="dark"

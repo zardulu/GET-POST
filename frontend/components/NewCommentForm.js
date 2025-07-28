@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Button, TextField, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import axios from 'axios';
-import config from '../config';
+import config from '../src/config';
 import ReCAPTCHA from "react-google-recaptcha";
 
 const NewCommentForm = ({ postId }) => {
   const [comment, setComment] = useState('');
   const [verified, setVerified] = useState(false);
   const theme = useTheme();
-
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -28,9 +27,9 @@ const NewCommentForm = ({ postId }) => {
         : config.development.apiUrl;
 
     axios
-      .post(`${apiUrl}/posts/${postId}/comments`, { content:comment }) // Sets 'comment' to request body
+      .post(`${apiUrl}/posts/${postId}/comments`, { content:comment })
       .then((response) => {
-        window.location.reload(); // Reloads on submit
+        window.location.reload();
         console.log('Comment created successfully:', response.data);
         
       })
@@ -39,44 +38,35 @@ const NewCommentForm = ({ postId }) => {
         
       });
 
-    console.log('Comment:', comment); //
+    console.log('Comment:', comment);
   };
 
   return (
-    
-    <Grid container justifyContent="center" alignItems="center" style={{ marginTop: '10vh' }}>   
+    <Grid container justifyContent="center" alignItems="center" style={{ marginTop:'10vh' }}>   
       <Grid item xs={10} sm={8} md={7} lg={6}>
-        
-      <form onSubmit={handleSubmit}>
-            <TextField
-              sx={{
-                fieldset: { borderColor: "#8d8d8d" }
-              }}
-              id="post-comment"
-              label="Comment"
-              fullWidth
-              multiline
-              rows={5}
-              value={comment}
-              onChange={handleCommentChange}
-              variant="outlined"
-              margin="normal"
-              color= "primary"
-            />
+        <form onSubmit={handleSubmit}>
+          <TextField
+            id="post-comment"
+            label="Comment"
+            fullWidth
+            multiline
+            rows={5}
+            value={comment}
+            onChange={handleCommentChange}
+            variant="outlined"
+            sx={{ mb: 2 }}
+          />
           <div style={{ display: 'flex', direction:'row', alignItems: 'center' }}>
-            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14': '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px'}}
-            >
+            <Button type="submit" variant="outlined" disabled={!verified} style={{color: verified ? '#39FF14': '#818181', borderColor: verified ? '#39FF14': '#818181', marginRight: '20px'}}>
               Comment
             </Button>
             <ReCAPTCHA
-            sitekey='6LfDkcMnAAAAAPA1u1pQ3CEEHa6SSMgwScrVAG-J'
-            onChange={handleCaptcha}
-            theme='dark'
+              sitekey={process.env.NEXT_PUBLIC_SITE_KEY || "6LfDkcMnAAAAAPA1u1pQ3CEEHa6SSMgwScrVAG-J"}
+              onChange={handleCaptcha}
+              theme='dark'
             />
-            
           </div>
-          </form>
-        
+        </form>
       </Grid>
     </Grid>
   );
